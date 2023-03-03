@@ -47,6 +47,8 @@ public class User {
   @Size(max=50)
   private  String typeFormation;
 
+  private  String files;
+
   @NotBlank
   @Size(max=50)
   private  String image;
@@ -83,6 +85,20 @@ public class User {
     this.numeroTel = numeroTel;
     this.typeFormation = typeFormation;
     this.image = image;
+  }
+
+  public User(String username, String email, String password, String firstName, String lastName, String numeroTel, String typeFormation, String files, String image, Boolean enabled, Set<Role> roles) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.numeroTel = numeroTel;
+    this.typeFormation = typeFormation;
+    this.files = files;
+    this.image = image;
+    this.enabled = enabled;
+    this.roles = roles;
   }
 
   public User(String username, String email, String password, String firstName, String lastName, String numeroTel, String typeFormation, String image, Boolean enabled, Set<Role> roles) {
@@ -176,5 +192,13 @@ public class User {
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public String getFiles() {
+    return files;
+  }
+
+  public void setFiles(String files) {
+    this.files = files;
   }
 }

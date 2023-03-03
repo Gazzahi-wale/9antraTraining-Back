@@ -32,7 +32,7 @@ import com.esprit.springjwt.repository.UserRepository;
 import com.esprit.springjwt.security.jwt.JwtUtils;
 import com.esprit.springjwt.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

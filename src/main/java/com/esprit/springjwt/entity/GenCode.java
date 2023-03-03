@@ -19,7 +19,6 @@ public class GenCode {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @JsonIgnore
   private String code;
 
   private String email;

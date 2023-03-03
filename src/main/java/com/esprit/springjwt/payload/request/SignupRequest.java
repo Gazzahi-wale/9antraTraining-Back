@@ -35,6 +35,7 @@ public class SignupRequest {
   @Size(max=50)
   private  String typeFormation;
 
+  private String files;
   @NotBlank
   @Size(max=50)
   private  String image;
@@ -108,5 +109,13 @@ public class SignupRequest {
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public String getFiles() {
+    return files;
+  }
+
+  public void setFiles(String files) {
+    this.files = files;
   }
 }

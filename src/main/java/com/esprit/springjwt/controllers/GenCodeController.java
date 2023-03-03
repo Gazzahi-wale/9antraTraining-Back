@@ -37,8 +37,6 @@ public class GenCodeController {
 //post with check if email exist in user model
   public ResponseEntity<?> generateCode(@RequestBody GenCode genCode) {
     if (userRepository.existsByEmail(genCode.getEmail())) {
-      String code = generateCode();
-      genCode.setCode(code);
       gencodeRepository.save(genCode);
       return ResponseEntity.ok(new MessageResponse("Code generated successfully!"));
     } else {
@@ -48,7 +46,7 @@ public class GenCodeController {
     }
   }
 
-  @PostMapping("/checkcode/{code}")
+  @GetMapping("/checkcode/{code}")
 //check if code exist
   public ResponseEntity<?> checkCode(@PathVariable String code) {
     if (gencodeRepository.existsByCode(code)) {
