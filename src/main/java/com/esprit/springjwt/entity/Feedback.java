@@ -1,15 +1,26 @@
 package com.esprit.springjwt.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-public class Feedback implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Feedback implements Serializable  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "idSession")
+    private Session Session;
+
+    private String Title ;
+    private String Comment;
+    private Date Date ;
+
+    public Feedback() {
+
+    }
 
     public Long getId() {
         return id;
@@ -19,34 +30,49 @@ public class Feedback implements Serializable {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        Title = title;
     }
 
-    public Date getDatefeedback() {
-        return datefeedback;
+    public String getComment() {
+        return Comment;
     }
 
-    public void setDatefeedback(Date datefeedback) {
-        this.datefeedback = datefeedback;
+    public void setComment(String comment) {
+        Comment = comment;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-    private String description ;
-    private Date datefeedback ;
+    public java.util.Date getDate() {
+        return Date;
+    }
 
-    public Feedback(Long id, String description, Date datefeedback) {
+    public void setDate(java.util.Date date) {
+        Date = date;
+    }
+
+    public Feedback(Long id) {
         this.id = id;
-        this.description = description;
-        this.datefeedback = datefeedback;
     }
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="Feedback")
-    private Set<Motsinterdit> motsInterdits;
+
+    public Feedback(String title, String comment, java.util.Date date) {
+        Title = title;
+        Comment = comment;
+        Date = date;
+    }
+
+    public Feedback(Long id, String title, String comment, java.util.Date date) {
+        this.id = id;
+        Title = title;
+        Comment = comment;
+        Date = date;
+
+    }
+
+    public void setSession(com.esprit.springjwt.entity.Session sessionById) {
+
+    }
 }

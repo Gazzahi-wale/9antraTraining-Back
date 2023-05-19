@@ -36,7 +36,7 @@ public class GenCodeController {
   @PostMapping("/generatecode")
 //post with check if email exist in user model
   public ResponseEntity<?> generateCode(@RequestBody GenCode genCode) {
-    if (userRepository.existsByEmail(genCode.getEmail())) {
+    if (userRepository.existsByUsername(genCode.getEmail())) {
       gencodeRepository.save(genCode);
       return ResponseEntity.ok(new MessageResponse("Code generated successfully!"));
     } else {
@@ -61,8 +61,8 @@ public class GenCodeController {
   // update password by email
   @PatchMapping("/updatepassword/{email}")
   public ResponseEntity<?> updatePassword(@PathVariable String email, @RequestBody User user) {
-    if (userRepository.existsByEmail(email)) {
-      User user1 = userRepository.findByEmail(email);
+    if (userRepository.existsByUsername(email)) {
+      User user1 = userRepository.findByUsername(email);
       user1.setPassword(encoder.encode(user.getPassword()));
       userRepository.save(user1);
       return ResponseEntity.ok(new MessageResponse("Password updated successfully!"));

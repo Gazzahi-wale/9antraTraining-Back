@@ -1,6 +1,7 @@
 package com.esprit.springjwt.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.esprit.springjwt.security.jwt.AuthEntryPointJwt;
 import com.esprit.springjwt.security.jwt.AuthTokenFilter;
 import com.esprit.springjwt.security.services.UserDetailsServiceImpl;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableGlobalMethodSecurity(
@@ -86,7 +88,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().antMatchers("/api/auth/**","/swagger*/**",
+        .authorizeRequests().antMatchers("/api/auth/**","/swagger*/**","/api/user/**","/api/**",
         "/swagger-ui/**","/api/resetpassword/**",
         "/api-docs").permitAll()
         .antMatchers("/api/test/**").permitAll()
