@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(origins = "*")
 
 @RestController
 @RequestMapping("/api/chapters")
@@ -19,9 +20,10 @@ public class ChaptersController {
     {
         return ChaptersService.getAllChapters();
     }
-    @PostMapping("/addChapters")
-    public Chapters addChapters(@RequestBody Chapters Chapters){
-        return ChaptersService.addChapters(Chapters);
+    //add chapters by id formation
+@PostMapping("/addChapters/{id}")
+    public Chapters addChapters(@RequestBody Chapters Chapters,@PathVariable("id") Long id){
+        return ChaptersService.addChapters(Chapters,id);
     }
     @GetMapping("/getChaptersById/{id}")
     public Chapters getChaptersById(@PathVariable("id") Long id)

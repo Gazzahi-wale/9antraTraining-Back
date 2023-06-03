@@ -43,27 +43,29 @@ public class FormationService {
     }
 
 
-    public List<Formation> getAllTypeForamtion()
-    {
+    public List<Formation> getAllTypeForamtion() {
         return formationRepository.findAll();
     }
 
-    public void deleteFormationById(Long id){
+    public void deleteFormationById(Long id) {
         formationRepository.deleteById(id);
     }
 
-    public Formation updateFormation(Formation formation){
+    public Formation updateFormation(Formation formation) {
         Categorie categorie = categorieRepository.findById(formation.getCategorie().getId()).get();
         formation.setCategorie(categorie);
         return formationRepository.save(formation);
     }
 
-    public Formation getFormationById(Long id){
+    public Formation getFormationById(Long id) {
         return formationRepository.findById(id).get();
     }
 
-    public List<Formation> getAllFormation(){
+    public List<Formation> getAllFormation() {
         return formationRepository.findAll();
     }
 
+    public List<Formation> getFormationsByCategorieId(Long id) {
+        return formationRepository.findByCategorieId(id);
+    }
 }

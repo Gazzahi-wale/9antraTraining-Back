@@ -25,6 +25,23 @@ public class FormationController {
     {
         return  this.formationService.addFormation(formation);
     }
+    // getFormations By CategorieId
+    @GetMapping("/getFormationsByCategorieId/{id}")
+    public List<Formation> getFormationsByCategorieId(@PathVariable("id") Long id)
+    {
+        return formationService.getFormationsByCategorieId(id);
+    }
+
+//get training by id
+    @GetMapping("/getFormationById/{id}")
+    public Formation getFormationById(@PathVariable("id") Long id)
+    {
+        return formationService.getFormationById(id);
+    }
+// add Formation by categroy id
+
+
+
 
 
 }

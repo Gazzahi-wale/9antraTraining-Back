@@ -25,5 +25,6 @@ public class Hackerspaces implements Serializable {
     private String Location;
     private Integer Phone;
     private String Email;
+    private String photo;
     private String Description;
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class Categorie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotBlank
+    @Size(max=15)
     private String nomCate;
 
     @JsonIgnore
@@ -29,6 +32,7 @@ public Categorie(String nomCate) {
 
     public Categorie(Long id, String nomCate) {
         this.id = id;
+
         this.nomCate = nomCate;
     }
 

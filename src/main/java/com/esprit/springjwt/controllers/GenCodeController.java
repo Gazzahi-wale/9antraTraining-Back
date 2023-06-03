@@ -5,6 +5,7 @@ import com.esprit.springjwt.entity.User;
 import com.esprit.springjwt.payload.response.MessageResponse;
 import com.esprit.springjwt.repository.GencodeRepository;
 import com.esprit.springjwt.repository.UserRepository;
+import com.esprit.springjwt.service.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/resetpassword")
 
 public class GenCodeController {
+   @Autowired
+   EmailServiceImpl emailService;
 
   @Autowired
   GencodeRepository gencodeRepository;
@@ -38,6 +41,10 @@ public class GenCodeController {
   public ResponseEntity<?> generateCode(@RequestBody GenCode genCode) {
     if (userRepository.existsByUsername(genCode.getEmail())) {
       gencodeRepository.save(genCode);
+      String msj ="bonjour " + genCode.getEmail() + "votre code est "+ genCode.getCode()  ;
+      String subject = "Bienvenue sur 9antraTraining";
+      emailService.sendSimpleMail(genCode.getEmail(), subject, msj);
+
       return ResponseEntity.ok(new MessageResponse("Code generated successfully!"));
     } else {
       return ResponseEntity

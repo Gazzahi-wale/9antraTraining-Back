@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -74,7 +76,10 @@ FormateurRepository formateurRepository;
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-        if (userRepository.findUserByEnabled(loginRequest.getUsername()) != 1) {
+
+        //get the id of the user
+
+        if (userRepository.findUserByEnabled(loginRequest.getUsername())==0) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: User Inactive!"));
@@ -87,7 +92,7 @@ FormateurRepository formateurRepository;
                 roles));
     }
 
-    public static String UPLOAD_PHOTO = "/Users/medyassinemessaoud/Documents/EspritSim/PFE WALA/FRONT/walefront/src/assets/images";
+
     public static String UPLOAD_DOCUMENTS = "C:\\Users\\Wale\\Desktop\\Final Design\\bridge\\src\\assets\\Documents\\";
 
     @PostMapping("/signup")
@@ -120,7 +125,7 @@ FormateurRepository formateurRepository;
         user.setLastName(lastName);
         user.setNumeroTel(numeroTel);
         user.setTypeFormation(typeFormation);
-        user.setImage("Homme.jpg");
+        user.setImage("profile-img.jpg");
 
         byte[] bytes1 = files.getBytes();
         Path path1 = Paths.get(UPLOAD_DOCUMENTS + filesName);
@@ -160,6 +165,9 @@ emailService.sendSimpleMail(username, subject, msj);
                                                  @RequestParam("country") String country,
                                                  @RequestParam("roles") Set<String> strRoles
                                              ) throws IOException {
+        String msj = "Bonjour " + firstName + " " + lastName + " votre compte a été crée avec succés";
+        String subject = "Bienvenue sur 9antraTraining";
+
 
 
         if (userRepository.existsByUsername(username)) {
@@ -180,8 +188,11 @@ emailService.sendSimpleMail(username, subject, msj);
         user.setNumeroTel(numeroTel);
         user.setTypeFormation(typeFormation);
 
+
         user.setCountry(country);
-            user.setImage("Homme.jpg");
+            user.setImage("profile-img.jpg");
+
+
 
 
         Set<Role> roles = new HashSet<>();
@@ -204,15 +215,28 @@ emailService.sendSimpleMail(username, subject, msj);
                     Role userRole = roleRepository.findByName(ERole.ETUDIANT)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(userRole);
+
             }
+
         });
+
+
 
         user.setRoles(roles);
 
+
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+
+
+        emailService.sendSimpleMail(username, subject, msj);
+        return ResponseEntity.ok(new MessageResponse("Formateur registered successfully!"));
+
+
+
+
     }
+
 
 
 }
